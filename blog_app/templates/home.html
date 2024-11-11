@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="main">
+    {% for post in posts %}
+        <article class="article">
+            <div class="article-header">
+                <h2>{{ post.title }}</h2>
+
+                <!-- ثلاث نقاط مع القائمة المنبثقة -->
+                <div class="options-menu">
+                    <span class="options-icon" onclick="toggleMenu(this)">⋮</span> <!-- ثلاث نقاط تكبير الحجم -->
+                    <div class="dropdown-content" style="display: none;">
+                        <a href="{% url 'blog:update_post' post.id %}">تعديل</a>
+                        <form method="post" action="{% url 'blog:delete_post' post.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا المقال؟')">حذف</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <p>{{ post.body }}</p>
+            <a href="{% url 'home:details' post.id %}">اقرأ المزيد</a>
+            <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+        </article>
+    {% endfor %}
+</main>
+{% endblock %}

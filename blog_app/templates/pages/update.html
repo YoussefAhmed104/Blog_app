@@ -1,0 +1,11 @@
+<!-- update_post.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>تعديل المنشور</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- عرض الحقول معبأة ببيانات المنشور -->
+    <button type="submit" class="submit-btn">Save</button>
+</form>
+{% endblock %}
