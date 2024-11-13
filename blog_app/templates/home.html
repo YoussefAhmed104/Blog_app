@@ -11,8 +11,8 @@
                 <div class="options-menu">
                     <span class="options-icon" onclick="toggleMenu(this)">⋮</span> <!-- ثلاث نقاط تكبير الحجم -->
                     <div class="dropdown-content" style="display: none;">
-                        <a href="{% url 'blog:update_post' post.id %}">تعديل</a>
-                        <form method="post" action="{% url 'blog:delete_post' post.id %}" style="display:inline;">
+                        <a href="{{post.get_update_url}}">تعديل</a>
+                        <form method="post" action="{{post.get_delete_url}}" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" class="delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا المقال؟')">حذف</button>
                         </form>
@@ -21,7 +21,7 @@
             </div>
 
             <p>{{ post.body }}</p>
-            <a href="{% url 'home:details' post.id %}">اقرأ المزيد</a>
+            <a href="{{post.get_absolute_url}}">اقرأ المزيد</a>
             <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
         </article>
     {% endfor %}
