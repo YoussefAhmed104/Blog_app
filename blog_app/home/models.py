@@ -11,6 +11,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=200)
     auther = models.ForeignKey(User ,on_delete=models.CASCADE , related_name= 'blog_post',null=True , blank=True)
+    slug = models.SlugField(max_length=200 , unique_for_date='publish',null=True , blank=True)
     body = models.TextField()
     publish = models.DateField(default=timezone.now)
     created = models.DateField(auto_now_add=True)
@@ -27,7 +28,12 @@ class Post(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("blog:details", args=[self.id])
+        return reverse("blog:details", args=[
+        self.publish.year,
+        self.publish.month,
+        self.publish.day,
+        self.slug,
+        ])
 
     def get_delete_url(self):
         return reverse("blog:delete_post", args=[self.id])
