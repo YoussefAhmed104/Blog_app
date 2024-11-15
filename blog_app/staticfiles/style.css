@@ -158,7 +158,6 @@ form p {
 
 
 
-
 /* تنسيق الحاوية الأساسية *//* تنسيق الحاوية الأساسية */
 .main-body {
     display: flex;
@@ -260,6 +259,7 @@ body::after {
 
 
 
+
 .article-header {
     display: flex;
     justify-content: space-between;
@@ -343,6 +343,5 @@ body::after {
 .dropdown-content a:hover, .dropdown-content form:hover {
     background-color: #ddd;
 }
-
 
 

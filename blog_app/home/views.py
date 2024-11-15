@@ -1,11 +1,14 @@
 from django.shortcuts import render , get_object_or_404
-from django.http import Http404
 from .models import Post
 from .forms import *
+from django.core.paginator import Paginator
 
 def posts_list(request):
     posts = Post.objects.all()
-    return render(request , 'home.html',{'posts':posts})
+    paginator = Paginator(posts, 3)  # استخدم posts بدلاً من posts_list
+    page_num = request.GET.get('page', 1)  # الحصول على رقم الصفحة من الرابط أو تعيين الصفحة الأولى كافتراضي
+    page_obj = paginator.page(page_num)  # استخدم paginator بدلاً من Paginator مباشرة
+    return render(request, 'home.html', {'posts': page_obj})
 
 def post_details(request, year, month, day, post):
     post = get_object_or_404(Post, 
