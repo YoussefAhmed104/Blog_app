@@ -1,16 +1,34 @@
-from django.shortcuts import render , get_object_or_404
+from django.shortcuts import render , get_object_or_404,redirect
 from .models import Post
 from .forms import *
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.views.generic import ListView
 
-def posts_list(request):
-    posts = Post.objects.all()
-    paginator = Paginator(posts, 3)  # استخدم posts بدلاً من posts_list
-    page_num = request.GET.get('page', 1)  # الحصول على رقم الصفحة من الرابط أو تعيين الصفحة الأولى كافتراضي
-    page_obj = paginator.page(page_num)  # استخدم paginator بدلاً من Paginator مباشرة
-    return render(request, 'home.html', {'posts': page_obj})
 
-def post_details(request, year, month, day, post):
+# def posts_list(request):#بنستخدم الباجيناتور علشان نعمل حد للبوستات الي تظهرلك
+#     posts = Post.objects.all()
+#     paginator = Paginator(posts, 3)  # استخدم posts بدلاً من posts_list
+#     page_num = request.GET.get('page', 1)  # الحصول على رقم الصفحة من الرابط أو تعيين الصفحة الأولى كافتراضي
+#     try:
+#         page_obj = paginator.page(page_num)  # استخدم paginator بدلاً من Paginator مباشرة
+#     except EmptyPage:
+#         page_obj = paginator.page(paginator.num_pages) #علشان ميجبلكش خطأ 
+#     except PageNotAnInteger:#علشان او في حروف مكان الاي دي ميجيش غلط و هيجيبلك اول صفحه 
+#         page_obj = paginator.page(1)
+#     return render(request, 'home.html', {'posts': page_obj})
+
+
+class PostListView(ListView):
+    """
+    Alternative post list view
+    """
+    model = Post        #==# posts = Post.objects.all()
+    context_object_name = 'posts'   #this is a context like this {'posts': page_obj}
+    paginate_by = 3     #==# paginator = Paginator(posts, 3)
+    template_name = 'home.html'    #==#return render(request, 'home.html', {'posts': page_obj})
+    
+
+def post_details(request, year, month, day, post):#علشان اخلي الايدي بالسنه و الشهر و اليوم و ف الاخر الايدي بتاع البوست
     post = get_object_or_404(Post, 
                             slug=post,
                             publish__year=year,
@@ -18,9 +36,6 @@ def post_details(request, year, month, day, post):
                             publish__day=day)
     return render(request , 'details.html',{'post':post})
 
-# views.py
-from django.shortcuts import render, redirect
-from .forms import PostForm
 
 def add_post(request):
     if request.method == 'POST':
@@ -40,7 +55,6 @@ def delete_post(request, id):
         post.delete()  # حذف المنشور من قاعدة البيانات
         return redirect('blog:home')  # إعادة التوجيه إلى الصفحة الرئيسية بعد الحذف
     return render(request, 'blog/delete_post.html', {'post': post})
-
 
 
 def update_post(request, id):

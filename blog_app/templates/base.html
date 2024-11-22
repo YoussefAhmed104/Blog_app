@@ -10,7 +10,7 @@
 <body>
     {% include "parts/nav.html" %}
     {% include "parts/header.html" %}
-    {% include "parts/pagination.html" %}
+    {% include "parts/pagination.html" with page=page_obj%}
     <div class="container">
         {% block content %}
 
