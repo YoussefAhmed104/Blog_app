@@ -10,10 +10,11 @@
                 <div class="options-menu">
                     <span class="options-icon" onclick="toggleMenu(this)">⋮</span> <!-- ثلاث نقاط تكبير الحجم -->
                     <div class="dropdown-content" style="display: none;">
-                        <a href="{{post.get_update_url}}">تعديل</a>
+                        <a href="{{post.get_update_url}}">Edit</a>
+                        <a href="{% url "blog:share post" post.id %}">Share</a>
                         <form method="post" action="{{post.get_delete_url}}" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا المقال؟')">حذف</button>
+                            <button type="submit" class="delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا المقال؟')">Delete</button>
                         </form>
                     </div>
                 </div>
