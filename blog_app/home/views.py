@@ -1,8 +1,9 @@
 from django.shortcuts import render , get_object_or_404,redirect
 from .models import Post
 from .forms import *
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+# from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
+from django.core.mail import send_mail
 
 
 # def posts_list(request):#بنستخدم الباجيناتور علشان نعمل حد للبوستات الي تظهرلك
@@ -68,3 +69,22 @@ def update_post(request, id):
         form = PostForm(instance=post)  # ملء الحقول بالبيانات الحالية في حالة GET
 
     return render(request, 'pages/update.html', {'form': form, 'post': post})
+
+
+
+
+def share_post(request,post_id):
+    post = get_object_or_404(Post, id = post_id , status = Post.Status.PUBLISHED)
+    sent = False
+    if request.method == 'POST':
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            supject = f"{cd['name']} recommends you read {post.title}"
+            massege = f"read {Post.title} at {post_id} \n {cd['name']}\'s comments: {cd['comments']}"
+            send_mail(supject, massege , 'youssifahmed104@gmail.com',[cd['to']])
+            sent = True
+    else:
+        form = EmailPostForm()
+    return render(request , 'pages/share.html', {'post':post , 'form':form, 'sent':sent})

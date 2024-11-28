@@ -128,3 +128,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# email server configation 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'youssifahmed104@gmail.com'
+EMAIL_HOST_PASSWORD = 'aero dfjz hbuw cnxj'
+
+#to try if all things is right open termenal shell and write this command
+#>>> from django.core.mail import send_mail 
+#>>> send_mail('django test email','trying the new method for sending mails','youssifahmed104@gmail.com',['youssefahmed.main@gmail.com'],fail_silently=False) 
