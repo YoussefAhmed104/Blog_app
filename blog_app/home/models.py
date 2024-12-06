@@ -40,3 +40,21 @@ class Post(models.Model):
 
     def get_update_url(self):
         return reverse("blog:update_post", args=[self.id])
+    
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post , on_delete=models.CASCADE , related_name='comments')
+
+    name = models.CharField(max_length=25)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            models.Index(fields=['created'])
+        ]
+
+    def __str__(self):
+        return f'commented by {self.name} on {self.post}'
