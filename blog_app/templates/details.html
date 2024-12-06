@@ -3,10 +3,29 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <p>
-    {{post.body}}
+    {{ post.body }}
 </p>
 <hr>
-<h5 class="date">
+
+{% with comments.count as total_comments %}
+<h2>
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+</h2>
+{% endwith %}
+{% for comment in comments %}
+    <div class="comment">
+        <h4 class="info">
+            comment by {{ comment.name }}
+            {{ comment.created }}
+        </h4>
+        {{ comment.body|linebreaks }}
+        <hr>
+    </div>
+{% empty %}
+    <p>ther is no comments yet</p>
+{% endfor %}
+
+<h3 class="date">
     Published {{post.publish}} by {{post.auther}}
-</h5>
+</h3>
 {% endblock %}

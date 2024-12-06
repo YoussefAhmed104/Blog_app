@@ -424,3 +424,51 @@ body::after {
     color: #007bff;
     font-style: italic;
 }
+
+
+
+/* التنسيق الأساسي لأزرار التفاعل */
+.post-actions {
+    display: flex; /* استخدام flexbox لوضع الأزرار بجانب بعض */
+    gap: 10px; /* إضافة مسافة بين الأزرار */
+    margin-top: 10px; /* إضافة مسافة من الأعلى */
+}
+
+.btn {
+    display: inline-flex; /* تمكين التنسيق الأفقي بين الأيقونة والنص */
+    align-items: center; /* محاذاة الأيقونة والنص */
+    padding: 8px 16px; /* إضافة مسافة داخلية */
+    font-size: 14px; /* حجم الخط */
+    border-radius: 5px; /* زوايا مستديرة للأزرار */
+    text-decoration: none; /* إزالة الخط تحت النص */
+    cursor: pointer; /* تغيير المؤشر عند المرور على الزر */
+    transition: background-color 0.3s ease; /* تأثير عند التحويم */
+}
+
+.comment-btn {
+    background-color: #007bff; /* اللون الأساسي لزر التعليق */
+    color: white; /* لون النص أبيض */
+    border: 1px solid #007bff; /* حدود بنفس لون الخلفية */
+}
+
+.comment-btn:hover {
+    background-color: #0056b3; /* التغيير في اللون عند التحويم */
+    border-color: #0056b3;
+}
+
+.share-btn {
+    background-color: #28a745; /* اللون الأساسي لزر المشاركة */
+    color: white; /* لون النص أبيض */
+    border: 1px solid #28a745; /* حدود بنفس لون الخلفية */
+}
+
+.share-btn:hover {
+    background-color: #218838; /* التغيير في اللون عند التحويم */
+    border-color: #218838;
+}
+
+/* تخصيص الأيقونات */
+.btn i {
+    margin-right: 8px; /* إضافة مسافة بين الأيقونة والنص */
+    font-size: 16px; /* تغيير حجم الأيقونة */
+}

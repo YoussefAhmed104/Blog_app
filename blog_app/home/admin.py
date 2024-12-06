@@ -9,3 +9,10 @@ class PostAdmin (admin.ModelAdmin):
     raw_id_fields = ['auther']  
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['name','body','created']
+    list_filter = ['created','updated']
+    search_fields = ['name','body']
+    

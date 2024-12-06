@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% include "parts/pagination.html" with page=page_obj %}
+
 <main class="main">
     {% for post in posts %}
         <article class="article">
@@ -11,7 +13,6 @@
                     <span class="options-icon" onclick="toggleMenu(this)">⋮</span> <!-- ثلاث نقاط تكبير الحجم -->
                     <div class="dropdown-content" style="display: none;">
                         <a href="{{post.get_update_url}}">Edit</a>
-                        <a href="{% url "blog:share post" post.id %}">Share</a>
                         <form method="post" action="{{post.get_delete_url}}" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" class="delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا المقال؟')">Delete</button>
@@ -20,9 +21,25 @@
                 </div>
             </div>
 
-            <p>{{ post.body }}</p>
-            <a href="{{post.get_absolute_url}}">اقرأ المزيد</a>
+            <p>{{ post.body|truncatewords:10 }}</p>
+            <a href="{{ post.get_absolute_url }}">اقرأ المزيد</a>
             <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+            
+            <!-- أزرار للتعليق والمشاركة -->
+            <div class="post-actions">
+                <!-- زر للتعليق -->
+                <form action="{% url 'blog:comment_post' post.id %}"  method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn comment-btn">
+                        <i class="fas fa-comment"></i> تعليق
+                    </button>
+                </form>
+                <!-- زر للمشاركة -->
+                <a href="{% url "blog:share_post" post.id %}"  class="btn share-btn">
+                    <i class="fas fa-share"></i> شارك
+                </a>
+            </div>
+            <a href="{{ post.get_absolute_url }}"><p><strong>Number of Comments: </strong> {{ post.num_comments }}</p></a>
         </article>
     {% endfor %}
 </main>
