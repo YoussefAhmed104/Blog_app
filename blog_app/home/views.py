@@ -6,12 +6,18 @@ from django.views.generic import ListView
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST,require_GET
 from django.db.models import Count
+from taggit.models import Tag
 
 
 
+def posts_list(request, tag_slug=None):#بنستخدم الباجيناتور علشان نعمل حد للبوستات الي تظهرلك
+    posts = Post.objects.annotate(num_comments=Count('comments')).order_by('created')
 
-def posts_list(request,):#بنستخدم الباجيناتور علشان نعمل حد للبوستات الي تظهرلك
-    posts = Post.objects.annotate(num_comments=Count('comments')) 
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag , slug= tag_slug)
+        posts = posts.filter(tags__in=[tag])
+
     paginator = Paginator(posts, 5)  # استخدم posts بدلاً من posts_list
     page_num = request.GET.get('page', 1)  # الحصول على رقم الصفحة من الرابط أو تعيين الصفحة الأولى كافتراضي
     try:
@@ -21,8 +27,8 @@ def posts_list(request,):#بنستخدم الباجيناتور علشان نع�
     except PageNotAnInteger:#علشان او في حروف مكان الاي دي ميجيش غلط و هيجيبلك اول صفحه 
         page_obj = paginator.page(1)
         
-    return render(request, 'home.html', {'posts': page_obj })
-    
+    return render(request, 'home.html', {'posts': page_obj , 'tag':tag})
+
 
 #class based vies
 
