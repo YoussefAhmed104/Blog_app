@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
+
+
 
 
 class Post(models.Model):
@@ -17,6 +20,8 @@ class Post(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=2,choices=Status.choices,default=Status.DRAFT)
+
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-publish']  #to order the posts from oldest to newest 
