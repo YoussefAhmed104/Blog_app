@@ -4,7 +4,7 @@ from .forms import *
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
-from django.views.decorators.http import require_POST,require_GET
+from django.views.decorators.http import require_POST
 from django.db.models import Count
 from taggit.models import Tag
 
@@ -50,7 +50,14 @@ def post_details(request, year, month, day, post):#علشان اخلي الاي�
                             publish__day=day)
     comments = post.comments.all()
     form = CommentForm()
-    return render(request , 'details.html',{'post':post , 'comments':comments })
+
+    post_tags_ids =  post.tags.values_list('id', flat=True)  #بيجيب كل الايديهات بتاعت التاجز الي ع البوست
+
+    similer_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(id=post.id) #بنجيب كل البوستات الي فيهم تاجات شبه بعض
+
+    similer_posts = similer_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','publish')  #علشان يجبلك البوستات الي فيها اكتر من تاج شبه بعض الاول
+
+    return render(request , 'details.html',{'post':post , 'comments':comments ,'similer_posts':similer_posts})
     
 
 

@@ -5,7 +5,9 @@
 <main class="main">
                 {% if tag %}
                     <h2>Posts tagged with "{{ tag.name }}"</h2>
+                    <hr>
                 {% endif %}
+                
                
     {% for post in posts %}
         <article class="article">
