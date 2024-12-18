@@ -7,6 +7,18 @@
 </p>
 <hr>
 
+
+<h2>similar posts : </h2>
+{% for post in similer_posts %}
+    <p>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a> number of similer tags  {{ post.same_tags }}
+    </p>
+    {% empty %}
+    <p>there is no  similer posts .</p>
+{% endfor %}
+<hr>
+
+
 {% with comments.count as total_comments %}
 <h2>
     {{ total_comments }} comment{{ total_comments|pluralize }}
