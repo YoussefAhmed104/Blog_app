@@ -19,6 +19,7 @@
     color: #fff;
     text-decoration: none;
 }
+
 .footer {
     background-color: #083a98;
     color: #fff;
@@ -471,4 +472,46 @@ body::after {
 .btn i {
     margin-right: 8px; /* إضافة مسافة بين الأيقونة والنص */
     font-size: 16px; /* تغيير حجم الأيقونة */
+}
+
+/* محتوى الشريط الجانبي */
+.navbar-title {
+    font-size: 1.5em;
+    color: #ffffff;
+    margin-bottom: 10px;
+    justify-content: center; 
+    text-align: center;
+}
+
+/* الروابط في الشريط الجانبي */
+.latest-posts a, .post-item a {
+    display: block;
+    font-size: 1.1em;
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 10px;
+    justify-content: center;
+    text-align: center; /* لتحريك النص أفقياً للمنتصف */
+}
+
+.latest-posts a:hover, .post-item a:hover {
+    text-decoration: underline;
+}
+
+
+/* عرض أحدث المقالات */
+.latest-posts {
+    margin-bottom: 20px;
+}
+
+/* عرض المنشورات الأكثر تعليقًا */
+.post-item {
+    margin-bottom: 15px;
+}
+
+/* تخصيص التعليقات */
+.post-comments {
+    font-size: 0.9em;
+    color: #f1e6e6;
+    text-align: center;
 }

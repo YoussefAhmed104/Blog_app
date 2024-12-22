@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% comment %} {% block title %}{{ post.title }}{% endblock %} {% endcomment %}
+{% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 <h1>{{ post.title }}</h1>
 <p>
@@ -17,6 +17,7 @@
     <p>there is no  similer posts .</p>
 {% endfor %}
 <hr>
+
 
 
 {% with comments.count as total_comments %}
@@ -38,6 +39,6 @@
 {% endfor %}
 
 <h3 class="date">
-    Published {{post.publish}} by {{post.auther}}
+    Published {{post.publish}} by {{post.auther}} 
 </h3>
 {% endblock %}
