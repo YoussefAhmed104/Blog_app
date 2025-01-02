@@ -1,24 +1,99 @@
-
+/* تصميم الهيدر */
 .header {
-    background-color: #083a98;
-    color: #fff;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #083a98; /* لون خلفية الهيدر */
+    color: #ffffff; /* لون النص */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ظل للهيدر */
     text-align: center;
 }
-.nav-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-.nav-list li {
-    margin: 0 1rem;
+
+/* العنوان في المنتصف */
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #ecf0f1; /* لون النص */
+    text-align: center;
 }
 
-.nav-list li a {
-    color: #fff;
-    text-decoration: none;
+/* تصميم قائمة التنقل */
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px; /* إضافة مسافة من الأعلى */
 }
+
+/* محاذاة النص داخل القوائم */
+.nav-list li {
+    font-size: 16px;
+    text-align: center;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+
+.nav-list a:hover {
+    color: #3498db; /* لون عند التمرير */
+}
+
+/* تصميم الشعار */
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ecf0f1;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+    flex-grow: 0;
+}
+
+/* تصميم أيقونة البحث */
+.search-icon {
+    position: absolute;
+    top: 15px;
+    left: 20px; /* وضع الأيقونة في الشمال */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #34495e; /* خلفية للأيقونة */
+    border-radius: 50%; /* جعل الأيقونة دائرية */
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.search-icon a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.search-icon img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1); /* تحويل الأيقونة إلى لون أبيض */
+}
+
+.search-icon:hover {
+    transform: scale(1.1); /* تكبير الأيقونة عند التمرير */
+    background-color: #1abc9c; /* تغيير اللون عند التمرير */
+}
+
 
 .footer {
     background-color: #083a98;
@@ -316,7 +391,6 @@ body::after {
 
 
 
-
 .options-icon {
     font-size: 24px; /* تكبير حجم الثلاث نقاط */
     cursor: pointer;
@@ -514,4 +588,55 @@ body::after {
     font-size: 0.9em;
     color: #f1e6e6;
     text-align: center;
+}
+
+
+.search_but {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.search_but:hover {
+    background-color: #0056b3;
+}
+
+.search_but:active {
+    background-color: #003f7f;
+    transform: scale(0.95); /* تقليل حجم الزر قليلاً عند الضغط */
+}
+
+
+
+
+.search_again {
+    height: 25px;
+    width: 90px;
+    padding: 0 20px;
+    background-color: #007bff; /* لون أخضر */
+    color: white;
+    font-size: 18px;
+    font-weight: medium;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل للزر */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.search_again:hover {
+    background-color: hsl(212, 70%, 37%); /* لون أغمق عند تمرير الماوس */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* زيادة الظل */
+}
+
+.search_again:active {
+    background-color: #003f7f; /* لون أغمق عند الضغط */
+    transform: scale(0.95); /* تصغير الزر قليلاً */
 }
