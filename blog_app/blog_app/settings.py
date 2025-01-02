@@ -34,9 +34,12 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.sitemaps', #علشان نستخدم السايت ماب
-    'django.contrib.sites',    #علشان نستخدم السايت ماب
-    'taggit',                  #علشان نسجل مكتبه التاجز
+    'markdownify',  
+    'django.contrib.postgres', # علشان نستخدم الداتا بيز الخاصه بالبوستجرس علشان نضيف ميزة البحث
+    'django_extensions',
+    'django.contrib.sitemaps', # علشان نستخدم السايت ماب
+    'django.contrib.sites',    # علشان نستخدم السايت ماب
+    'taggit',                  # علشان نسجل مكتبه التاجز
     'home.apps.HomeConfig',     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,10 +85,15 @@ WSGI_APPLICATION = 'blog_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog',
+        'USER': 'blog',  
+        'PASSWORD': 'youssef2009',  
+        'HOST': 'localhost', 
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation

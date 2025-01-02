@@ -12,5 +12,6 @@ urlpatterns = [
     path('share/<int:post_id>/', views.share_post, name= 'share_post'),
     path('comment/<int:post_id>/', views.comment_post, name= 'comment_post'),
     path('tag/<slug:tag_slug>/', views.posts_list, name='posts_by_tag'),
+    path('search/', views.search, name='search'),
 ]
 

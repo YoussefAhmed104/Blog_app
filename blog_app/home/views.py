@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from django.db.models import Count
 from taggit.models import Tag
+from django.contrib.postgres.search import SearchVector , SearchQuery , SearchRank
 
 
 
@@ -128,3 +129,18 @@ def comment_post(request,post_id):
         #s save the comment to the data base 
         comment.save()
     return render(request , 'pages/comment.html', {'post':post , 'form':form, 'comment':comment})
+
+
+
+def search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']  # استخراج البحث من النموذج
+            search_vector = SearchVector('title', 'body')
+            search_query = SearchQuery(query, config='english')#بنعمل البحث عن الكلمات الي انت كاتبها ف البوست و بنجيب النتيجه الي تحتوي علي الكلمه الي انت كاتبها
+            results = Post.objects.annotate(search=search_vector, rank=SearchRank(search_vector, search_query)).filter(search=query).order_by('-rank')  #بنجيب البوستات الي فيها الكلمه الي انت كاتبها و بنرتبها بحسب الاهميه
+    return render(request, 'pages/search.html', {'form': form, 'query': query, 'results': results})

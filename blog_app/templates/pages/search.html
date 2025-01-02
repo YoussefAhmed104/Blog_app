@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+
+{% block title %}search{% endblock title %}
+
+{% block content %}
+    {% if query %}
+        <h1>posts contaning "{{ query }}"</h1>
+        <h3>
+            {% with total_results=results.count %} <!-- يتم استخدام علامة  لإنشاء متغير مؤقت يسمى total_results يحتوي على عدد النتائج (results.count).-->
+                found {{ total_results }} result{{ total_results|pluralize }} <!-- يتم استخدام علامة pluralize لإضافة s إلى result إذا كانت النتيجة أكثر من نتيجة واحدة. -->
+            {% endwith %} 
+        </h3>
+
+        {% for post in results %} <!-- يتم استخدام الحلقة for لعرض النتائج. -->
+            <h4>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>  <!-- يتم عرض عنوان المنشور كـ رابط يشير إلى عنوان URL الخاص به (عن طريق post.get_absolute_url). -->
+            </h4>
+            {{ post.body|truncatewords:12 }}  <!-- يتم عرض جزء من محتوى المنشور باستخدام: post.body|markdown: لتحويل النص إلى تنسيق Markdown.truncatewords:12: لعرض أول 12 كلمة فقط من النص. -->
+       
+        {% empty %}
+            <p>no results found</p>
+        {% endfor %}
+        <p class="search_again"  ><a href="{% url "blog:search" %}"> search again </a></p>
+
+    {% else %} <!-- إذا لم يتم تقديم أي نتائج بحث. -->
+
+            <h1>search for posts</h1>
+            <form method="get" >  <!-- يتم استخدام النموذج لتقديم نموذج بحث. -->
+                {{ form.as_p }}
+                <button class="search_but" type="submit">search</button>
+            </form>
+
+    {% endif %}
+{% endblock %}

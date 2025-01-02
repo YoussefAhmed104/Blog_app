@@ -19,7 +19,7 @@ class Post(models.Model):
     publish = models.DateField(default=timezone.now)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now_add=True)
-    status = models.CharField(max_length=2,choices=Status.choices,default=Status.DRAFT)
+    status = models.CharField(max_length=20,choices=Status.choices,default=Status.DRAFT)
 
     tags = TaggableManager()
 
